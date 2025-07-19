@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netflix Clone - Login & Subscription</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #141414; color: white; margin: 0; padding: 20px; }
+    .container { max-width: 400px; margin: auto; background: #222; padding: 20px; border-radius: 10px; }
+    input, select, button { width: 100%; padding: 10px; margin: 10px 0; border: none; border-radius: 5px; }
+    input, select { background: #333; color: white; }
+    button { background: #e50914; color: white; font-weight: bold; cursor: pointer; }
+    button:hover { background: #f40612; }
+    .message { color: lightgreen; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container" id="login-container">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="loginBtn">Login</button>
+    <button id="logoutBtn" style="display:none">Logout</button>
+    <p><a href="#" id="forgotLink" style="color:lightblue;">Forgot Password?</a></p>
+    <p id="errorMsg" style="color:red;"></p>
+  </div>
+
+  <div class="container" id="forgot-container" style="display:none">
+    <h2>Forgot Password</h2>
+    <input type="email" id="resetEmail" placeholder="Enter your email" />
+    <button id="resetSubmit">Send Reset Link</button>
+    <p id="resetSuccess" class="message"></p>
+  </div>
+
+  <div class="container" id="subscription-container" style="margin-top:40px">
+    <h2>Subscribe</h2>
+    <label for="planSelect">Choose Plan:</label>
+    <select id="planSelect">
+      <option value="basic">Basic - $8.99</option>
+      <option value="standard">Standard - $12.99</option>
+      <option value="premium">Premium - $15.99</option>
+    </select>
+
+    <input type="text" id="cardNumber" placeholder="Card Number" />
+    <input type="text" id="expiry" placeholder="Expiry (MM/YY)" />
+    <input type="text" id="cvv" placeholder="CVV" />
+    <button id="payBtn">Pay</button>
+    <p id="successMsg" class="message"></p>
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const errorMsg = document.getElementById("errorMsg");
+    const forgotLink = document.getElementById("forgotLink");
+    const resetSubmit = document.getElementById("resetSubmit");
+    const resetSuccess = document.getElementById("resetSuccess");
+
+    loginBtn.onclick = () => {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      if (email === "test@netflix.com" && pass === "test123") {
+        errorMsg.textContent = "";
+        logoutBtn.style.display = "block";
+        alert("Login successful!");
+      } else {
+        errorMsg.textContent = "Invalid credentials";
+      }
+    };
+
+    logoutBtn.onclick = () => {
+      logoutBtn.style.display = "none";
+      alert("Logged out!");
+    };
+
+    forgotLink.onclick = () => {
+      document.getElementById("login-container").style.display = "none";
+      document.getElementById("forgot-container").style.display = "block";
+    };
+
+    resetSubmit.onclick = () => {
+      const email = document.getElementById("resetEmail").value;
+      if (email) {
+        resetSuccess.textContent = "Reset link sent to " + email;
+      }
+    };
+
+    const payBtn = document.getElementById("payBtn");
+    const successMsg = document.getElementById("successMsg");
+
+    payBtn.onclick = () => {
+      const card = document.getElementById("cardNumber").value;
+      const expiry = document.getElementById("expiry").value;
+      const cvv = document.getElementById("cvv").value;
+
+      if (card && expiry && cvv) {
+        successMsg.textContent = "Subscription successful!";
+      } else {
+        successMsg.textContent = "Please fill all payment fields.";
+      }
+    };
+  </script>
+</body>
+</html>
